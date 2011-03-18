@@ -30,7 +30,7 @@ class Bullet implements Actor{
     public Bullet(float x, float y) {
         position = new Vec2(x, y);
         body = null;
-        live = false;
+        live = true;
     }
 
     public String getName() {
@@ -39,7 +39,7 @@ class Bullet implements Actor{
 
     public void render(Renderer renderer) {
         renderer.setTexture(null);
-        renderer.setColor(Color.white);
+        renderer.setColor(Color.black);
         renderer.transform(new Vec3(0, 0, 1), 0);
         renderer.drawBody(body);
     }
@@ -55,7 +55,7 @@ class Bullet implements Actor{
             pointDef.localPosition = new Vec2(0, 0);
             pointDef.radius = 0.01f;
             pointDef.density = 1/(float)Math.PI/pointDef.radius/pointDef.radius;
-            pointDef.filter.groupIndex = 1;
+            pointDef.filter.groupIndex = -1;
             body.createShape(pointDef);
             body.setMassFromShapes();
             body.applyImpulse(new Vec2(0, 3), body.getWorldCenter());

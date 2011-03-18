@@ -5,6 +5,7 @@
 
 package org.curious.shoda.actors;
 
+import clojure.lang.IPersistentSet;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class Player implements Actor {
         moveRight = false;
         moveUp = false;
         shoot = false;
-        gunTimer = System.currentTimeMillis();
+        gunTimer = Long.MAX_VALUE;
         gunPeriod = 100;
     }
 
@@ -47,7 +48,7 @@ public class Player implements Actor {
 
     public void render(Renderer renderer) {
         renderer.setTexture(null);
-        renderer.setColor(Color.white);
+        renderer.setColor(Color.black);
         renderer.transform(new Vec3(0, 0, 1), 0);
         renderer.drawBody(body);
     }
@@ -103,6 +104,7 @@ public class Player implements Actor {
             moveUp = input.value > .5;
         }else if(keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
             shoot = input.value > .5;
+            gunTimer = -1000000;
         }
     }
 
